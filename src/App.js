@@ -70,6 +70,7 @@ function App({signOut}) {
 
   const createNewRestaurant = async e => {
     e.stopPropagation();
+    // fire only if fields not empty
     const { name, description, city } = state.formData;
     const restaurant = {
       name,
@@ -77,6 +78,8 @@ function App({signOut}) {
       city,
     };
     await API.graphql(graphqlOperation(createRestaurant, { input: restaurant }));
+    //  empty fields
+    
   };
 
   const handleChange = e =>
