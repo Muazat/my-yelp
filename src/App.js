@@ -101,6 +101,9 @@ function App({ signOut }) {
   };
 
   const handleChange = e => {
+    setName(e.target.value)
+    setCity(e.target.value)
+    setDescription(e.target.value)
     dispatch({
       type: 'SET_FORM_DATA',
       payload: { [e.target.name]: e.target.value },
