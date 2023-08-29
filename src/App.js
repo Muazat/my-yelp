@@ -42,10 +42,9 @@ function App({ signOut }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [inputError, setInputError] = useState("")
 
-  const inName = useRef("")
-  const inCity = useRef("")
-  const inDescription = useRef("")
-
+  const [name, setName] = useState("")
+  const [city, setCity] = useState("")
+  const [description, setDescription] = useState("")
 
   useEffect(() => {
     Auth.currentAuthenticatedUser()
@@ -124,16 +123,16 @@ function App({ signOut }) {
       <Container>
         <Row className="mt-3">
           <Col md={4}>
-            {inputError && <p>{inputError}</p>}
+            {inputError && <p className='err'>{inputError}</p>}
             <Form>
               <Form.Group controlId="formDataName" className='mtop'>
-                <Form.Control onChange={handleChange} type="text" name="name" ref={inName} placeholder="Name" />
+                <Form.Control onChange={handleChange} type="text" name="name" value={name} placeholder="Name" />
               </Form.Group>
               <Form.Group controlId="formDataDescription" className='mtop'>
-                <Form.Control onChange={handleChange} type="text" name="description" ref={inDescription} placeholder="Description" />
+                <Form.Control onChange={handleChange} type="text" name="description" placeholder="Description" value={description} />
               </Form.Group>
               <Form.Group controlId="formDataCity" className='mtop'>
-                <Form.Control onChange={handleChange} type="text" name="city" placeholder="City" ref={inCity} />
+                <Form.Control onChange={handleChange} type="text" name="city" placeholder="City" value={city} />
               </Form.Group>
               <Button onClick={createNewRestaurant} className="float-left">
                 Add New Restaurant
