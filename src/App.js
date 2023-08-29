@@ -37,9 +37,10 @@ const reducer = (state, action) => {
   }
 };
 
-function App({signOut}) {
+function App({ signOut }) {
   const [user, setUser] = useState(null);
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [inputError, setInputError] = useState("")
 
   useEffect(() => {
     Auth.currentAuthenticatedUser()
@@ -70,23 +71,33 @@ function App({signOut}) {
 
   const createNewRestaurant = async e => {
     e.stopPropagation();
-    // fire only if fields not empty
+
     const { name, description, city } = state.formData;
-    const restaurant = {
-      name,
-      description,
-      city,
-    };
-    await API.graphql(graphqlOperation(createRestaurant, { input: restaurant }));
-    //  empty fields
-    
+    if (name && description && city) {
+      console.log("good")
+      const restaurant = {
+        name,
+        description,
+        city,
+      };
+      await API.graphql(graphqlOperation(createRestaurant, { input: restaurant }));
+      state.formData = null
+    } else {
+      setInputError("Form need to be completed")
+    }
+
+
   };
 
-  const handleChange = e =>
+  const handleChange = e => {
     dispatch({
       type: 'SET_FORM_DATA',
       payload: { [e.target.name]: e.target.value },
     });
+
+  }
+
+
 
   const handleSignOut = async () => {
     try {
@@ -101,6 +112,7 @@ function App({signOut}) {
       <Container>
         <Row className="mt-3">
           <Col md={4}>
+            {inputError && <p>{inputError}</p>}
             <Form>
               <Form.Group controlId="formDataName" className='mtop'>
                 <Form.Control onChange={handleChange} type="text" name="name" placeholder="Name" />
@@ -152,7 +164,7 @@ function App({signOut}) {
       </Container>
     </div>
   );
-  
+
 }
 
 export default withAuthenticator(App);
