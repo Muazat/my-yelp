@@ -81,9 +81,10 @@ function App({ signOut }) {
         city,
       };
       await API.graphql(graphqlOperation(createRestaurant, { input: restaurant }));
-      state.formData = null
+      dispatch(null)
     } else {
       setInputError("Form need to be completed")
+      dispatch(null)
     }
 
 
