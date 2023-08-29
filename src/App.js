@@ -85,15 +85,15 @@ function App({ signOut }) {
         city,
       };
       await API.graphql(graphqlOperation(createRestaurant, { input: restaurant }));
-      inName.current = ""
-      inCity.current = ""
-      inDescription.current = ""
+      setName("")
+      setCity("")
+      setCity("")
 
     } else {
       setInputError("Form need to be completed")
-      inName.current = ""
-      inCity.current = ""
-      inDescription.current = ""
+      setName("")
+      setCity("")
+      setCity("")
 
     }
 
