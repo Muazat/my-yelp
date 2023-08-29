@@ -32,22 +32,27 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-.float-left{
+.float-left {
   margin-left: 0;
   margin-right: 18px;
   margin-top: 10px;
 }
 
-.float-right{
+.float-right {
   margin-left: 18px;
   margin-top: 10px;
 }
 
-.mtop{
+.mtop {
   margin-top: 8px;
+}
+
+.err {
+  color: red;
 }

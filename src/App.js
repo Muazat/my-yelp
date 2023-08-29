@@ -4,7 +4,7 @@ import { API, graphqlOperation, Auth } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import "@aws-amplify/ui-react/styles.css";
 import { Amplify } from 'aws-amplify';
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Col, Container, Form, Row, Table } from 'react-bootstrap';
 
@@ -41,6 +41,11 @@ function App({ signOut }) {
   const [user, setUser] = useState(null);
   const [state, dispatch] = useReducer(reducer, initialState);
   const [inputError, setInputError] = useState("")
+
+  const inName = useRef("")
+  const inCity = useRef("")
+  const inDescription = useRef("")
+
 
   useEffect(() => {
     Auth.currentAuthenticatedUser()
@@ -81,10 +86,16 @@ function App({ signOut }) {
         city,
       };
       await API.graphql(graphqlOperation(createRestaurant, { input: restaurant }));
-      dispatch(null)
+      inName.current = ""
+      inCity.current = ""
+      inDescription.current = ""
+
     } else {
       setInputError("Form need to be completed")
-      dispatch(null)
+      inName.current = ""
+      inCity.current = ""
+      inDescription.current = ""
+
     }
 
 
@@ -116,13 +127,13 @@ function App({ signOut }) {
             {inputError && <p>{inputError}</p>}
             <Form>
               <Form.Group controlId="formDataName" className='mtop'>
-                <Form.Control onChange={handleChange} type="text" name="name" placeholder="Name" />
+                <Form.Control onChange={handleChange} type="text" name="name" ref={inName} placeholder="Name" />
               </Form.Group>
               <Form.Group controlId="formDataDescription" className='mtop'>
-                <Form.Control onChange={handleChange} type="text" name="description" placeholder="Description" />
+                <Form.Control onChange={handleChange} type="text" name="description" ref={inDescription} placeholder="Description" />
               </Form.Group>
               <Form.Group controlId="formDataCity" className='mtop'>
-                <Form.Control onChange={handleChange} type="text" name="city" placeholder="City" />
+                <Form.Control onChange={handleChange} type="text" name="city" placeholder="City" ref={inCity} />
               </Form.Group>
               <Button onClick={createNewRestaurant} className="float-left">
                 Add New Restaurant
