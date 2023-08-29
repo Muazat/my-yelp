@@ -129,13 +129,13 @@ function App({ signOut }) {
             {inputError && <p className='err'>{inputError}</p>}
             <Form>
               <Form.Group controlId="formDataName" className='mtop'>
-                <Form.Control onChange={handleChange} type="text" name="name" value={name} placeholder="Name" />
+                <Form.Control onChange={handleChange} type="text" name="name" placeholder="Name" />
               </Form.Group>
               <Form.Group controlId="formDataDescription" className='mtop'>
-                <Form.Control onChange={handleChange} type="text" name="description" placeholder="Description" value={description} />
+                <Form.Control onChange={handleChange} type="text" name="description" placeholder="Description" />
               </Form.Group>
               <Form.Group controlId="formDataCity" className='mtop'>
-                <Form.Control onChange={handleChange} type="text" name="city" placeholder="City" value={city} />
+                <Form.Control onChange={handleChange} type="text" name="city" placeholder="City" />
               </Form.Group>
               <Button onClick={createNewRestaurant} className="float-left">
                 Add New Restaurant
